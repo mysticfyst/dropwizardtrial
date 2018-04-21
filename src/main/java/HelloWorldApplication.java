@@ -1,3 +1,4 @@
+import filters.RunBeforeOthers;
 import health.TemplateHealthCheck;
 import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
@@ -29,6 +30,7 @@ public class HelloWorldApplication extends Application<HelloWorldConfig> {
         final TemplateHealthCheck healthCheck =
                 new TemplateHealthCheck(helloWorldConfig.getTemplate());
         environment.healthChecks().register("template", healthCheck);
+        environment.jersey().register(RunBeforeOthers.class);
         environment.jersey().register(resource);
     }
 }
